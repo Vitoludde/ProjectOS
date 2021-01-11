@@ -3,15 +3,19 @@ using System.Collections.Generic;
 using System.Text;
 using Sys = Cosmos.System;
 
+using ProjectOS;
+
 namespace ProjectOS.SystemPrograms
 {
     class FileHandler
     {
-        public static void ReadFile(string Path)
+        static ProjectOS.Kernel Kernel = new ProjectOS.Kernel();
+
+        public static void ReadFile(string Filename)
         {
             try
             {
-                var hello_file = Sys.FileSystem.VFS.VFSManager.GetFile(Path);
+                var hello_file = Sys.FileSystem.VFS.VFSManager.GetFile(Kernel.CurrentPath + Filename);
                 var hello_file_stream = hello_file.GetFileStream();
 
                 if (hello_file_stream.CanRead)

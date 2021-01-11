@@ -10,6 +10,8 @@ namespace ProjectOS
 {
 	public class Kernel : Sys.Kernel
 	{
+		public string CurrentPath = "0:/";
+
 		protected override void BeforeRun()
 		{
 			Console.WriteLine("Boot Succesfull");
@@ -49,11 +51,14 @@ namespace ProjectOS
 				Console.WriteLine(String.Format("FATAL ERROR! Cannot start Auxiliary Commands. Error: {0}. Report this to the author immediately!", e));
 				Environment.Exit(0);
 			}
+
+			AuxiliaryCommands.clear();
+			Console.WriteLine("Boot Succesfull! Welcome to the OS!");
 		}
 
 		protected override void Run()
 		{
-			Console.Write("Input: ");
+			Console.Write(CurrentPath + ">");
 			var input = Console.ReadLine();
 
 			string[] inputs = input.Split(' ');
@@ -87,8 +92,11 @@ namespace ProjectOS
 				FileHandler.WriteFile(args[0], args[1], args[2]);
 			} else if (input == "list")
 			{
-				FileHandler.GetFiles(args[0]);
-			}
+				FileHandler.GetFiles(CurrentPath);
+			} else if (input == "quit")
+            {
+
+            }
 
 			
 		}

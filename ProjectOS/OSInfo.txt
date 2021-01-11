@@ -7,3 +7,5 @@ Changes:
 
  - Added commands for the FileHandler
  - Kernel changes to stop the OS after a fatal error on boot
+ - Added Auxiliary Commands
+ - Added Unstable branch to Github
