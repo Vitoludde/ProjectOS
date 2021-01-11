@@ -7,7 +7,7 @@ namespace ProjectOS.SystemPrograms
 {
     class FileHandler
     {
-        void ReadFile(string Path)
+        public static void ReadFile(string Path)
         {
             try
             {
@@ -27,7 +27,7 @@ namespace ProjectOS.SystemPrograms
             }
         }
 
-        void WriteFile(string PathToFile, string Filename, string Content)
+        public void WriteFile(string PathToFile, string Filename, string Content)
         {
             try
             {
@@ -57,7 +57,7 @@ namespace ProjectOS.SystemPrograms
             }
         }
 
-        void GetFiles(string Path)
+        public void GetFiles(string Path)
         {
             var directory_list = Sys.FileSystem.VFS.VFSManager.GetDirectoryListing(Path);
             foreach (var directoryEntry in directory_list)

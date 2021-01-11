@@ -3,3 +3,7 @@ Major, Minor, Patch
 
 Creator: Victor
 
+Changes:
+
+ - Filehandler
+ - Kernel testing on boot

@@ -22,7 +22,8 @@ namespace ProjectOS
                 Console.WriteLine("Initialized FAT File System");
             } catch (InvalidCastException e)
             {
-                Console.WriteLine(String.Format("FATAL ERROR! Cannot Initialize FAT File System. Error: {0}", e));
+                Console.WriteLine(String.Format("FATAL ERROR! Cannot Initialize FAT File System. Error: {0}. Report this to the author immediately!", e));
+                Environment.Exit(0);
             }
 
             Console.WriteLine("Starting File Handler");
@@ -33,7 +34,8 @@ namespace ProjectOS
             }
             catch (InvalidCastException e)
             {
-                Console.WriteLine(String.Format("FATAL ERROR! Could not start File Handler. Error: {0}", e));
+                Console.WriteLine(String.Format("FATAL ERROR! Cannot start File Handler. Error: {0}. Report this to the author immediately!", e));
+                Environment.Exit(0);
             }
         }
 
@@ -41,8 +43,40 @@ namespace ProjectOS
         {
             Console.Write("Input: ");
             var input = Console.ReadLine();
-            Console.Write("Text typed: ");
-            Console.WriteLine(input);
+
+            string[] inputs = input.Split(' ');
+
+            string[] args = new string[] {""};
+
+            string cmd = inputs[0];
+
+            int i = 0;
+
+            foreach (string arg in inputs)
+            {
+                if (arg != cmd)
+                {
+                    args[i] = arg;
+                }
+
+                i++;
+            }
+
+            if (input == "about")
+            {
+                Console.WriteLine("File path is 0:/[PATH]");
+            }
+
+            if (input == "read")
+            {
+                if (args.Length > 0) 
+                {
+                    FileHandler.ReadFile(args[0]);
+                } else
+                {
+                    Console.WriteLine("You need to specify a path!");
+                }
+            }
 
             
         }
