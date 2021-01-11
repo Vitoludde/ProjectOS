@@ -24,7 +24,11 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-      - name: Download a single artifact
-        uses: actions/download-artifact@v2
+      - run: mkdir -p path/to/artifact
+
+      - run: echo hello > path/to/artifact/world.txt
+
+      - uses: actions/upload-artifact@v2
         with:
-          name: output-log-file
+          name: my-artifact
+          path: path/to/artifact/world.txt
