@@ -27,7 +27,7 @@ namespace ProjectOS.SystemPrograms
             }
         }
 
-        public static void WriteFile(string PathToFile, string Filename, string Content)
+        public void WriteFile(string PathToFile, string Filename, string Content)
         {
             try
             {
@@ -57,7 +57,7 @@ namespace ProjectOS.SystemPrograms
             }
         }
 
-        public static void GetFiles(string Path)
+        public void GetFiles(string Path)
         {
             var directory_list = Sys.FileSystem.VFS.VFSManager.GetDirectoryListing(Path);
             foreach (var directoryEntry in directory_list)
