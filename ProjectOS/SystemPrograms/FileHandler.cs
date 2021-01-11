@@ -40,7 +40,8 @@ namespace ProjectOS.SystemPrograms
                     {
                         file_stream.Write(Encoding.ASCII.GetBytes(Content), 0, Content.Length);
                     }
-                } else
+                } 
+                else
                 {
                     var newfile = Sys.FileSystem.VFS.VFSManager.CreateFile(PathToFile + "\\" + Filename);
                     var newfile_stream = newfile.GetFileStream();
@@ -59,10 +60,17 @@ namespace ProjectOS.SystemPrograms
 
         public static void GetFiles(string Path)
         {
-            var directory_list = Sys.FileSystem.VFS.VFSManager.GetDirectoryListing(Path);
-            foreach (var directoryEntry in directory_list)
+            try
             {
-                Console.WriteLine(directoryEntry.mName);
+                var directory_list = Sys.FileSystem.VFS.VFSManager.GetDirectoryListing(Path);
+                foreach (var directoryEntry in directory_list)
+                {
+                    Console.WriteLine(directoryEntry.mName);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
             }
         }
     }
