@@ -1,9 +1,9 @@
-﻿Version: 0.1.1
+﻿Version: 0.1.2
 Major, Minor, Patch
 
 Creator: Victor
 
 Changes:
 
- - Filehandler
- - Kernel testing on boot
+ - Added commands for the FileHandler
+ - Kernel changes to stop the OS after a fatal error on boot

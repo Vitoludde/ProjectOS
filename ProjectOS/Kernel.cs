@@ -76,9 +76,43 @@ namespace ProjectOS
                 {
                     Console.WriteLine("You need to specify a path!");
                 }
+            } else if (input == "write")
+            {
+                if (args.Length > 0)
+                {
+                    if (args.Length > 1)
+                    {
+                        if (args.Length > 2)
+                        {
+                            FileHandler.WriteFile(args[0], args[1], args[2]);
+                        }
+                        else
+                        {
+                            Console.WriteLine("You need to specify content!");
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("You need to specify a filename!");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("You need to specify a path!");
+                }
+            } else if (input == "list")
+            {
+                if (args.Length > 0)
+                {
+                    FileHandler.GetFiles(args[0]);
+                }
+                else
+                {
+                    Console.WriteLine("You need to specify a path!");
+                }
             }
 
-            
+
         }
     }
 }
