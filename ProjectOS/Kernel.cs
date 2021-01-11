@@ -37,6 +37,18 @@ namespace ProjectOS
 				Console.WriteLine(String.Format("FATAL ERROR! Cannot start File Handler. Error: {0}. Report this to the author immediately!", e));
 				Environment.Exit(0);
 			}
+
+			Console.WriteLine("Starting Auxiliary Commands");
+			try
+			{
+				SystemPrograms.AuxiliaryCommands AuxiliaryCommands = new SystemPrograms.AuxiliaryCommands();
+				Console.WriteLine("Started Auxiliary Commands");
+			}
+			catch (InvalidCastException e)
+			{
+				Console.WriteLine(String.Format("FATAL ERROR! Cannot start Auxiliary Commands. Error: {0}. Report this to the author immediately!", e));
+				Environment.Exit(0);
+			}
 		}
 
 		protected override void Run()
