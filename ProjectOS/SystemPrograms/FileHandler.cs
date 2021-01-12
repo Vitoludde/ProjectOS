@@ -31,45 +31,16 @@ namespace ProjectOS.SystemPrograms
             }
         }
 
-        public static void WriteFile(string PathToFile, string Filename, string Content)
+        public static void WriteFile(string Filename, string Content)
         {
             try
             {
-                var file = Sys.FileSystem.VFS.VFSManager.GetFile(PathToFile + "\\" + Filename);
-                if (file != null)
-                {
-                    var file_stream = file.GetFileStream();
+                var file = Sys.FileSystem.VFS.VFSManager.GetFile(Kernel.CurrentPath + "\\" + Filename);
+                var file_stream = file.GetFileStream();
 
-                    if (file_stream.CanWrite)
-                    {
-                        file_stream.Write(Encoding.ASCII.GetBytes(Content), 0, Content.Length);
-                    }
-                } 
-                else
+                if (file_stream.CanWrite)
                 {
-                    var newfile = Sys.FileSystem.VFS.VFSManager.CreateFile(PathToFile + "\\" + Filename);
-                    var newfile_stream = newfile.GetFileStream();
-
-                    if (newfile_stream.CanWrite)
-                    {
-                        newfile_stream.Write(Encoding.ASCII.GetBytes(Content), 0, Content.Length);
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.ToString());
-            }
-        }
-
-        public static void GetFiles(string Path)
-        {
-            try
-            {
-                var directory_list = Sys.FileSystem.VFS.VFSManager.GetDirectoryListing(Path);
-                foreach (var directoryEntry in directory_list)
-                {
-                    Console.WriteLine(directoryEntry.mName);
+                    file_stream.Write(Encoding.ASCII.GetBytes(Content), 0, Content.Length);
                 }
             }
             catch (Exception e)

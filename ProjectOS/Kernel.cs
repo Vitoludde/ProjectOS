@@ -10,6 +10,8 @@ namespace ProjectOS
 {
 	public class Kernel : Sys.Kernel
 	{
+		public string[] commands = new string[] {"About - This", "Read (File) - Reads file direct to OS with filename", "List", "Write (File) (Content) - Writes a file with the file name and content", "Up - Go up a directory", "Go - Go into directory"};
+
 		public string CurrentPath = "0:/";
 
 		protected override void BeforeRun()
@@ -25,7 +27,7 @@ namespace ProjectOS
 			} catch (InvalidCastException e)
 			{
 				Console.WriteLine(String.Format("FATAL ERROR! Cannot Initialize FAT File System. Error: {0}. Report this to the author immediately!", e));
-				Environment.Exit(0);
+				Sys.Power.Shutdown();
 			}
 
 			Console.WriteLine("Starting File Handler");
@@ -37,7 +39,19 @@ namespace ProjectOS
 			catch (InvalidCastException e)
 			{
 				Console.WriteLine(String.Format("FATAL ERROR! Cannot start File Handler. Error: {0}. Report this to the author immediately!", e));
-				Environment.Exit(0);
+				Sys.Power.Shutdown();
+			}
+
+			Console.WriteLine("Starting Directory Handler");
+			try
+			{
+				SystemPrograms.DirectoryHandler DirectoryHandler = new SystemPrograms.DirectoryHandler();
+				Console.WriteLine("Started Directory Handler");
+			}
+			catch (InvalidCastException e)
+			{
+				Console.WriteLine(String.Format("FATAL ERROR! Cannot start Directory Handler. Error: {0}. Report this to the author immediately!", e));
+				Sys.Power.Shutdown();
 			}
 
 			Console.WriteLine("Starting Auxiliary Commands");
@@ -48,8 +62,7 @@ namespace ProjectOS
 			}
 			catch (InvalidCastException e)
 			{
-				Console.WriteLine(String.Format("FATAL ERROR! Cannot start Auxiliary Commands. Error: {0}. Report this to the author immediately!", e));
-				Environment.Exit(0);
+				Console.WriteLine(String.Format("ERROR! Cannot start Auxiliary Commands. Error: {0}.", e));
 			}
 
 			AuxiliaryCommands.clear();
@@ -61,7 +74,7 @@ namespace ProjectOS
 			Console.Write(CurrentPath + ">");
 			var input = Console.ReadLine();
 
-			string[] inputs = input.Split(' ');
+			/*string[] inputs = input.Split(' ');
 
 			string[] args = new string[] {""};
 
@@ -77,28 +90,63 @@ namespace ProjectOS
 				}
 
 				i++;
-			}
+			}*/
 
 			if (input == "about")
 			{
-				Console.WriteLine("File path is 0:/[PATH]");
+				Console.WriteLine("Commands: ");
+				foreach (string member in commands)
+                {
+					Console.WriteLine(member);
+                }
 			}
 
 			if (input == "read")
 			{
-				FileHandler.ReadFile(args[0]);
-			} else if (input == "write")
-			{
-				FileHandler.WriteFile(args[0], args[1], args[2]);
-			} else if (input == "list")
-			{
-				FileHandler.GetFiles(CurrentPath);
-			} else if (input == "quit")
-            {
+				Console.Write("Filename: ");
+				var name = Console.ReadLine();
 
-            }
-
+				FileHandler.ReadFile(name);
+			} 
 			
+			else if (input == "write")
+			{
+				Console.Write("Filename: ");
+				var name = Console.ReadLine();
+
+				Console.Write("Content: ");
+				var content = Console.ReadLine();
+
+				FileHandler.WriteFile(name, content);
+			} 
+			
+			else if (input == "list")
+			{
+				DirectoryHandler.GetFiles(CurrentPath);
+			}
+
+			else if (input == "go")
+			{
+				Console.Write("Directory Name: ");
+				var name = Console.ReadLine();
+
+				DirectoryHandler.GoTo(name);
+			}
+
+			else if (input == "up")
+			{
+				DirectoryHandler.DirUp();
+			}
+
+			else if (input == "quit")
+            {
+				AuxiliaryCommands.Shutdown();
+			}
+
+			else if (input == "shutdown")
+			{
+				AuxiliaryCommands.Shutdown();
+			}
 		}
 	}
 }

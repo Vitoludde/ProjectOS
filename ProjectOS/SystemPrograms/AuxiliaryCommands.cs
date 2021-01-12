@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 
+using Sys = Cosmos.System;
+
 namespace ProjectOS.SystemPrograms
 {
     class AuxiliaryCommands
@@ -40,7 +42,31 @@ namespace ProjectOS.SystemPrograms
 
             Console.WriteLine("");
 
+            Console.WriteLine("");
 
+            Console.WriteLine("");
+
+            Console.WriteLine("");
+
+            Console.WriteLine("");
+
+            Console.WriteLine("");
+
+            Console.WriteLine("");
+
+            Console.WriteLine("");
+
+            Console.WriteLine("");
+
+            Console.WriteLine("");
+
+            Console.WriteLine("");
+
+
+        }
+        public static void Shutdown()
+        {
+            Sys.Power.Shutdown();
         }
     }
 }
